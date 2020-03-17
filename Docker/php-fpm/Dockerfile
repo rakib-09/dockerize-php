@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mysqli  mbstring exif pcntl bcmath gd imagick xmlrpc xml intl
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 #Human Language and character Encoding Support
 RUN apt-get install -y zlib1g-dev libicu-dev g++
