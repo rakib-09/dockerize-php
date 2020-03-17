@@ -1,0 +1,58 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: Docker/php-fpm
+      dockerfile: Dockerfile
+    container_name: php-fpm
+    volumes:
+      - "./WorkStation:/var/www/html"
+    working_dir: /var/www/html
+    restart: unless-stopped
+    networks:
+    - default
+
+  mysqldb:
+    image: mysql:5.7
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+    - "./Docker/mysql:/var/lib/mysql"
+    ports:
+    - "${MYSQL_PORT}:3306"
+    networks:
+    - default
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+    - 8000:80
+    volumes:
+    - "./:/var/www"
+    - "./Docker/nginx:/etc/nginx/conf.d"
+    networks:
+    - default
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+    - "8080:80"
+    environment:
+    - PMA_ARBITRARY=1
+    - PMA_HOST=${MYSQL_HOST}
+    restart: unless-stopped
+    depends_on:
+    - mysqldb
+
+networks:
+  default:
+    driver: bridge
