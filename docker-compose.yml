@@ -19,6 +19,8 @@ services:
     depends_on:
     - php
     - mysqldb
+    networks:
+    - default
   php:
     build:
       context: Docker/php-fpm
@@ -28,34 +30,42 @@ services:
     volumes:
     - "./Docker/php-fpm/php.ini:/usr/local/etc/php/conf.d/php.ini"
     - "./Workstation:/var/www/html"
+    networks:
+    - default
 #  composer:
 #    image: "composer"
 #    volumes:
 #    - "./Workstation/app:/app"
 #    command: install
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    ports:
-    - "8080:80"
-    environment:
-    - PMA_ARBITRARY=1
-    - PMA_HOST=${MYSQL_HOST}
-    restart: always
-    depends_on:
-    - mysqldb
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    container_name: phpmyadmin
+#    ports:
+#    - "8080:80"
+#    environment:
+#    - PMA_ARBITRARY=1
+#    - PMA_HOST=${MYSQL_HOST}
+#    - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+#    - MYSQL_USER=${MYSQL_USERNAME}
+#    - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+#    restart: always
+#    depends_on:
+#    - mysqldb
+#    networks:
+#    - default
   mysqldb:
-    image: mysql:${MYSQL_VERSION}
-    container_name: ${MYSQL_HOST}
-    restart: always
-    env_file:
-    - ".env"
-    environment:
-    - MYSQL_DATABASE=${MYSQL_DATABASE}
-    - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    - MYSQL_USER=${MYSQL_USERNAME}
-    - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    image: mysql:5.7
     ports:
-    - "8989:3306"
-    volumes:
-    - "./Docker/mysql:/var/lib/mysql"
+    - 3306:3306
+    depends_on:
+    - php
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
