@@ -1,8 +1,6 @@
 /.idea
 Workstation/*
 Docker/nginx/logs
-Docker/mysql/*
+Docker/db/*
 .DS_Store
-!/Docker/mysql/
 !/Workstation/
-data/*
