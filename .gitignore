@@ -1,1 +1,4 @@
 /.idea
+Workstation/*
+Docker/nginx/logs
+Docker/mysql/*

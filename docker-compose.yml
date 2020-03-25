@@ -1,12 +1,26 @@
 version: "3.7"
 services:
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+    - 8000:80
+    volumes:
+    - ./:/var/www
+    - ./Docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    - ./docker/nginx/logs:/var/log/nginx
+    depends_on:
+    - app
+    networks:
+    - default
   app:
     build:
       context: Docker/php-fpm
       dockerfile: Dockerfile
     container_name: php-fpm
     volumes:
-      - "./WorkStation:/var/www/html"
+      - ./WorkStation:/var/www/html
     working_dir: /var/www/html
     restart: unless-stopped
     networks:
@@ -26,23 +40,13 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-    - "./Docker/mysql:/var/lib/mysql"
+    - ./Docker/mysql:/var/lib/mysql
     ports:
     - "8989:3306"
     networks:
     - default
 
-  nginx:
-    image: nginx:1.17-alpine
-    container_name: nginx
-    restart: unless-stopped
-    ports:
-    - 8000:80
-    volumes:
-    - "./:/var/www"
-    - "./Docker/nginx:/etc/nginx/conf.d"
-    networks:
-    - default
+
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
