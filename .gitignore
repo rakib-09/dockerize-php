@@ -2,3 +2,4 @@
 Workstation/*
 Docker/nginx/logs
 Docker/mysql/*
+.DS_Store
