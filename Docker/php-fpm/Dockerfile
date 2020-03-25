@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 #ENV XDEBUG="false"
 
@@ -27,7 +27,7 @@ RUN docker-php-ext-install soap
 RUN docker-php-ext-install exif
 
 # Install the PHP mcrypt extention (from PECL, mcrypt has been removed from PHP 7.2)
-RUN pecl install mcrypt-1.0.2
+RUN pecl install mcrypt
 RUN docker-php-ext-enable mcrypt
 
 # Install the PHP pcntl extention

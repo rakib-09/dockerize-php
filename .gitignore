@@ -5,3 +5,4 @@ Docker/mysql/*
 .DS_Store
 !/Docker/mysql/
 !/Workstation/
+data/*
