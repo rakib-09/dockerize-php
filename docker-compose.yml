@@ -12,18 +12,14 @@ services:
     networks:
     - default
   mysqldb:
-    image: mysql:5.7.22
-    container_name: mysqldb
-    restart: unless-stopped
+    image: mysql:5.7
+    ports:
+    - 3306:3306
     environment:
-      MYSQL_DATABASE: app_db
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_PASSWORD: secret
-      MYSQL_USER: admin
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-    - ./docker/db/mysql:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     networks:
     - default
   nginx:
