@@ -42,3 +42,14 @@ docker-compose exec app composer install
 ```
 http://server_domain_or_IP:8000
 ```
+
+* For Mysql connection you have to write this in your settings file:
+
+```
+DB_HOST=mysqldb
+DB_PORT=3306
+DB_DATABASE=app_db
+DB_USERNAME=admin
+DB_PASSWORD=secret
+```
+
