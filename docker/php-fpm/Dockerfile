@@ -70,5 +70,3 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN usermod -u 1000 www-data
 WORKDIR /var/www
-
-RUN ["php", "/var/www/artisan", "queue:work", "--daemon", "--queue=do-work", "--sleep=3", "--tries=3"]
