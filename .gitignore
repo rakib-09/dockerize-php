@@ -1,6 +1,7 @@
 /.idea
 Workstation/*
-Docker/nginx/logs
-Docker/db/*
+docker/nginx/logs
+docker/db/*
 .DS_Store
 !/Workstation/
+docker/certbot
