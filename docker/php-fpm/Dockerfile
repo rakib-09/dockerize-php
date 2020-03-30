@@ -9,6 +9,8 @@ RUN apt-get update && \
         libjpeg-dev \
         libpng-dev \
         libfreetype6-dev \
+        libwebp-dev \
+        libxpm-dev \
         libssl-dev \
         libmcrypt-dev \
         openssh-server \
@@ -55,6 +57,12 @@ RUN pecl install imagick && \
 #####################################
 
 # Install the PHP gd library
+RUN docker-php-ext-configure gd \
+    --enable-gd \
+    --with-freetype \
+    --with-jpeg \
+    --with-xpm \
+    --with-webp
 RUN docker-php-ext-install gd
 
 # Install composer and add its bin to the PATH.

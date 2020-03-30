@@ -3,5 +3,5 @@ Workstation/*
 docker/nginx/logs
 docker/db/*
 .DS_Store
-!/Workstation/
+!/workstation/
 docker/certbot
