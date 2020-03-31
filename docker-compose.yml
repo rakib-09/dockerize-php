@@ -6,14 +6,12 @@ services:
       dockerfile: Dockerfile
     container_name: app
     restart: unless-stopped
-    ports:
-      - 6001:6001
-
     working_dir: /var/www/
     volumes:
     - ./workstation:/var/www
     networks:
     - default
+    
   mysqldb:
     image: mysql:5.7
     container_name: mysqldb
@@ -28,6 +26,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     networks:
     - default
+    
   nginx:
     image: nginx:1.17-alpine
     container_name: nginx
@@ -35,6 +34,8 @@ services:
     ports:
     - 8000:80
     - 443:443
+    depends_on: 
+    - app
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
     - ./workstation:/var/www
