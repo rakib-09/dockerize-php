@@ -40,7 +40,7 @@ docker-compose exec app composer install
 * Now go to the browser and access your server’s domain name or IP address on port 8000:
 
 ```
-http://server_domain_or_IP:8000
+http://server_domain_or_IP:80
 ```
 
 * For Mysql connection you have to write this in your settings file:
