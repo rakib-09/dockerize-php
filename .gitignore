@@ -4,3 +4,4 @@ docker/db/*
 .DS_Store
 workstation/*
 docker/certbot
+!/workstation/
