@@ -10,7 +10,8 @@ https://github.com/rakib-09/dockerize-php.git
 
 * Change your *.env* information as you want.
 
-* Inside the `Workstation` directory put your all *php* code. 
+* Add a `workstation` directory.
+* Inside the `workstation` directory put your all *php* code. 
 *important: Your index.php file must inside the public directory*
 
 * Build the *app* image with the following command:
