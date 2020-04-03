@@ -37,10 +37,17 @@ docker-compose ps
 docker-compose exec app composer install
 ```
 
-* Now go to the browser and access your server’s domain name or IP address on port 8000:
+* You may need to change nginx opening port to your desired your port. For that change the port from nginx container: 
 
 ```
-http://server_domain_or_IP:80
+ports:
+  - 8000:80
+  - 443:443
+```
+* Now go to the browser and access your server’s domain name or IP address on your desired Port {ex: 8000}:
+
+```
+http://server_domain_or_IP:8000
 ```
 
 * For Mysql connection you have to write this in your settings file:
@@ -52,4 +59,6 @@ DB_DATABASE=app_db
 DB_USERNAME=admin
 DB_PASSWORD=secret
 ```
+
+* Here I also added a scope to secerud your web service using SSL certificate. For this I added `certbot` container to get and give you a Let's Encrypt SSL certification.
 
